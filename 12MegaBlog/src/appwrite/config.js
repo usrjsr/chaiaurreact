@@ -36,7 +36,7 @@ export class Service{
         }
     }
 
-    async updatePost(slug,{title,content,image,status,userid}) {
+    async updatePost(slug,{title,content,image,status}) {
         try {
             return await this.databases.updateDocument(
                 conf.appwriteDatabaseId,
@@ -47,7 +47,6 @@ export class Service{
                     content,
                     image,
                     status,
-                    userid
                 }
             )
         }
@@ -86,12 +85,13 @@ export class Service{
         }
     }
 
-    async getPosts() {
+    async getPosts(queries = [Query.equal("status", "active")]) {
         try {
             return await this.databases.listDocuments(
                 conf.appwriteDatabaseId,
                 conf.appwriteCollectionId,
-                [Query.equal("status","active")]// Fetch only active posts
+                queries
+                
 
             )
         }
@@ -137,9 +137,6 @@ export class Service{
         );
     }
 
-    getFileView(fileId) {
-        return this.bucket.getFileView(conf.appwriteBucketId, fileId);
-    }
 
 
 

@@ -5,10 +5,10 @@ import { logout } from '../../store/auth.slice';
 
 function LogoutBtn() {
     const dispatch = useDispatch();
-    const logoutHandler = async () => {
+    const logoutHandler = () => {
         authService.logout().then(()=>{
             dispatch(logout())
-        }).catch
+        })
     }
   return (
     <button
